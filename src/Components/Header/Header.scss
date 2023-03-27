@@ -15,10 +15,8 @@ $white: #ffffff;
   line-height: 39px;
 }
 
-.header__title::before {
-  font-weight: 900;
+.header__title--red {
   color: $red;
-  content: "My";
 }
 
 form {

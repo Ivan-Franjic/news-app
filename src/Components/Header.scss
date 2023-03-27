@@ -1,36 +1,42 @@
-$red: rgb(189, 6, 6);
+$red: #bb1e1e;
 $background-hover: rgba(189, 6, 6, 0.89);
-$white: white;
+$white: #ffffff;
 
 .header {
   display: flex;
   align-items: center;
   gap: 50px;
-  height: 40px;
+  height: 50px;
 }
 
 .header__title {
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 39px;
 }
 
 .header__title::before {
-  font-weight: 800;
+  font-weight: 900;
   color: $red;
   content: "My";
 }
 
 form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: $white;
   color: #555;
   display: flex;
-  width: 700px;
-  padding: 2px;
+  width: 725px;
+  height: 50px;
   border: none;
   border-radius: 10px;
+  box-shadow: 0px 1px 2px -1px #c8cad1;
 }
 
 .header__search {
-  width: 600px;
+  width: 620px;
   border: none;
   background: transparent
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
@@ -49,12 +55,16 @@ form {
   background-color: $red;
   color: $white;
   overflow: hidden;
-  width: 100px;
+  width: 95px;
+  height: 40px;
   padding: 0;
   margin: 0;
   border: none;
-  border-radius: 7px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
 }
 
 .header__button:hover {

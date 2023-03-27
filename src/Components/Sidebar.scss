@@ -1,0 +1,38 @@
+$text-color: rgba(0, 0, 0, 0.555);
+$text-color-pressed: rgb(189, 6, 6);
+$background-hover: rgba(0, 0, 0, 0.05882);
+$background-pressed: white;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 70px;
+}
+
+.sidebar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $text-color;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.sidebar__item:hover {
+  background-color: $background-hover;
+}
+
+.sidebar__link {
+  text-decoration: none;
+}
+
+.sidebar__icon {
+  width: 25px;
+  height: 25px;
+}
+
+.sidebar__text {
+  font-size: small;
+}

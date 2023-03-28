@@ -9,24 +9,35 @@ $background-pressed: white;
   width: 63px;
 }
 
-.sidebar__item {
+.active {
+  text-decoration: none;
   width: 63px;
   height: 63px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: $text-color;
   border: none;
   border-radius: 5px;
+  background-color: $background-pressed;
+  color: $text-color-pressed;
 }
 
-.sidebar__item:hover {
-  background-color: $background-hover;
-}
-
-.sidebar__link {
+.inactive {
   text-decoration: none;
+  width: 63px;
+  height: 63px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  color: $text-color;
+}
+
+.inactive:hover {
+  background-color: $background-hover;
 }
 
 .sidebar__icon {

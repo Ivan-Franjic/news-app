@@ -1,20 +1,23 @@
 import "./Header.scss";
-export default function Header() {
+
+export default function Header({
+  onClick,
+  onChange,
+}: {
+  onClick: React.MouseEventHandler;
+  onChange: React.ChangeEventHandler;
+}) {
   return (
     <div className="header">
       <span className="header__title">
         <span className="header__title--red">My</span>News
       </span>
-      <form>
-        <input
-          className="header__search"
-          type="search"
-          placeholder="Search news"
-        />
-        <button className="header__button" type="submit">
+      <div className="header__search">
+        <input type="text" placeholder="Search news" onChange={onChange} />
+        <button onClick={onClick} className="header__button" type="submit">
           SEARCH
         </button>
-      </form>
+      </div>
     </div>
   );
 }

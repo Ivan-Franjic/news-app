@@ -38,27 +38,45 @@ export default function News() {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div>
-      <Header
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setSearch(e.target.value);
-        }}
-        onClick={fetchData}
-      />
-      <Sidebar />
-      <h4>News</h4>
-      {data.articles.map((item: any) => {
-        return (
-          <Article
-            title={item.title}
-            category={category}
-            author={item.author}
-            image={item.urlToImage}
-          />
-        );
-      })}
-
-      <LatestNews />
+    <div className="news">
+      <div className="news__header">
+        <Header
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearch(e.target.value);
+          }}
+          onClick={fetchData}
+        />
+        <div className="header__buttons">
+          <p>Featured</p>
+          <p>Latest</p>
+        </div>
+        <div className="border"></div>
+      </div>
+      <div className="news__main">
+        <div className="news__sidebar">
+          <Sidebar />
+        </div>
+        <div className="news__content">
+          <div className="news__articles">
+            <p>News</p>
+            <div className="articles">
+              {data.articles.map((item: any) => {
+                return (
+                  <Article
+                    title={item.title}
+                    category={category}
+                    author={item.author}
+                    image={item.urlToImage}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <div className="news__latest">
+            <LatestNews />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

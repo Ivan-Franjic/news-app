@@ -13,7 +13,7 @@ export default function Header({
         <span className="header__title--red">My</span>News
       </span>
       <div className="header__search">
-        <input type="text" placeholder="Search news" onChange={onChange} />
+        <input type="search" placeholder="Search news" onChange={onChange} />
         <button onClick={onClick} className="header__button" type="submit">
           SEARCH
         </button>

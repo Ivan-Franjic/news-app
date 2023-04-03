@@ -21,10 +21,10 @@ export default function Sidebar() {
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? "active" : "inactive")}
-        to={`/entertainment`}
+        to={`/general`}
       >
         <IoNewspaperOutline className="sidebar__icon" />
-        <span className="sidebar__text">Entertainment</span>
+        <span className="sidebar__text">General</span>
       </NavLink>
       <NavLink
         className={({ isActive }) => (isActive ? "active" : "inactive")}

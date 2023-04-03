@@ -12,7 +12,7 @@ export default function LatestNews() {
   return (
     <div className="latest-news">
       <div className="latest-news__header">
-        <span className="dot"></span>
+        <span className="header__dot"></span>
         <span>Latest news</span>
       </div>
       <div className="latest-news__articles">

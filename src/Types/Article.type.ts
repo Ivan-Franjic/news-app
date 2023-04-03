@@ -3,4 +3,5 @@ export interface IArticle {
   category: string;
   author: string;
   image: string;
+  favourite: any;
 }

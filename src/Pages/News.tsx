@@ -8,6 +8,8 @@ import Header from "../Components/Header/Header";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
+import { BsStar } from "react-icons/bs";
+import { BsStarFill } from "react-icons/bs";
 
 export default function News() {
   const { categoryName } = useParams()!;
@@ -16,6 +18,11 @@ export default function News() {
   const [search, setSearch] = useState<string>("");
   const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
   const [ToggleState, setToggleState] = useState<number>(1);
+  const [favourites, setFavourites] = useState(() => {
+    const ls = localStorage.getItem("favourites");
+    if (ls) return JSON.parse(ls);
+    else return [];
+  });
 
   const toggleTab = (index: number) => {
     setToggleState(index);
@@ -24,10 +31,17 @@ export default function News() {
   const getActiveClass = (index: number, className: string) =>
     ToggleState === index ? className : "";
 
+  const addFav = (title: string) => () => {
+    const isFavourited = favourites.includes(title);
+    if (isFavourited)
+      setFavourites((prev: any) => prev.filter((b: any) => b !== title));
+    else setFavourites((prev: any) => [...prev, title]);
+  };
+
   const fetchData = () => {
-    if (categoryName === undefined) {
+    if (categoryName === undefined || categoryName === "favourites") {
       setUrl(
-        `https://newsapi.org/v2/top-headlines?q=${search}&country=us&category=general&apiKey=ff6ab548f10341ddb1c486d6399fdbc2`
+        `https://newsapi.org/v2/top-headlines?q=${search}&country=us&apiKey=ff6ab548f10341ddb1c486d6399fdbc2`
       );
       setCategory("news");
       setSearch("");
@@ -39,9 +53,11 @@ export default function News() {
       setSearch("");
     }
   };
+
   useEffect(() => {
     fetchData();
-  }, [categoryName]);
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+  }, [categoryName, favourites]);
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(url, fetcher);
@@ -51,12 +67,29 @@ export default function News() {
   return (
     <div className="homepage">
       <div className="homepage__header">
-        <Header
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearch(e.target.value);
-          }}
-          onClick={fetchData}
-        />
+        <div className="header__banner">
+          <div className="banner__text">
+            <span>Make MyNews your homepage</span>
+            <span>Every day discover what's trending on the internet!</span>
+          </div>
+          <div className="banner__buttons">
+            <button className="button__get">Get</button>
+            <button className="button__no">No, thanks</button>
+          </div>
+        </div>
+        <div className="header__main">
+          <Header
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearch(e.target.value);
+            }}
+            onClick={fetchData}
+            onKeyPress={(e: any) => {
+              if (e.key === "Enter") {
+                fetchData();
+              }
+            }}
+          />
+        </div>
         <button
           className="sidebar__toggler"
           onClick={() => setNavbarOpen((prev) => !prev)}
@@ -97,16 +130,60 @@ export default function News() {
             <p>News</p>
             <div className={`content ${getActiveClass(1, "active-content")}`}>
               <div className="articles">
-                {data.articles.map((item: any) => {
-                  return (
-                    <Article
-                      title={item.title}
-                      category={category}
-                      author={item.author}
-                      image={item.urlToImage}
-                    />
-                  );
-                })}
+                {data.articles.length > 0 ? (
+                  categoryName === "favourites" ? (
+                    favourites.length > 0 ? (
+                      data.articles.map((item: any, index: number) => {
+                        return favourites.includes(item.title) ? (
+                          <Article
+                            key={index}
+                            title={item.title}
+                            category={category}
+                            author={item.author}
+                            image={item.urlToImage}
+                            favourite={
+                              <span onClick={addFav(item.title)}>
+                                {favourites.includes(item.title) ? (
+                                  <BsStarFill style={{ color: "#ffd250" }} />
+                                ) : (
+                                  <BsStar style={{ color: "#ffd250" }} />
+                                )}
+                              </span>
+                            }
+                          />
+                        ) : (
+                          ""
+                        );
+                      })
+                    ) : (
+                      <div>No favourite articles found!</div>
+                    )
+                  ) : (
+                    data.articles.map((item: any, index: number) => {
+                      const isFavourited = favourites.includes(item.title);
+                      return (
+                        <Article
+                          key={index}
+                          title={item.title}
+                          category={category}
+                          author={item.author}
+                          image={item.urlToImage}
+                          favourite={
+                            <span onClick={addFav(item.title)}>
+                              {isFavourited ? (
+                                <BsStarFill style={{ color: "#ffd250" }} />
+                              ) : (
+                                <BsStar style={{ color: "#ffd250" }} />
+                              )}
+                            </span>
+                          }
+                        />
+                      );
+                    })
+                  )
+                ) : (
+                  <div>No articles found!</div>
+                )}
               </div>
             </div>
           </div>

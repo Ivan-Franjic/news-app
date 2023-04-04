@@ -1,7 +1,7 @@
 .sidebar__toggler {
   position: absolute;
   top: 4vh;
-  right: 8vw;
+  right: 3vw;
   border: none;
 }
 
@@ -15,12 +15,22 @@
   display: none;
 }
 
+.header__main {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+}
+
 .header__buttons {
   display: flex;
   justify-content: center;
   list-style: none;
   gap: 10px;
   margin-top: 42px;
+}
+
+.header__buttons.show-menu {
+  display: none;
 }
 
 .tab {
@@ -57,6 +67,10 @@
   align-items: center;
 }
 
+.homepage__content.show-menu {
+  display: none;
+}
+
 .content__articles > p {
   display: none;
 }
@@ -75,7 +89,16 @@
   display: flex;
 }
 
-@media only screen and (min-width: 1024px) {
+.loading,
+.failed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-weight: 900;
+  font-size: 32px;
+}
+
+@media only screen and (min-width: 1200px) {
   .homepage {
     align-items: center;
   }
@@ -153,6 +176,7 @@
   }
 
   .header__main {
+    justify-content: start;
     margin-top: 95px;
   }
 

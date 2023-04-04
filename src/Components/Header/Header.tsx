@@ -4,13 +4,15 @@ export default function Header({
   onClick,
   onChange,
   onKeyPress,
+  navbarOpen,
 }: {
   onClick: React.MouseEventHandler;
   onChange: React.ChangeEventHandler;
   onKeyPress: React.KeyboardEventHandler;
+  navbarOpen: boolean;
 }) {
   return (
-    <div className="header">
+    <div className={`header${navbarOpen ? " show-menu" : ""}`}>
       <span className="header__title">
         <span className="header__title--red">My</span>News
       </span>

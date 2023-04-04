@@ -16,18 +16,22 @@ export default function LatestNews() {
         <span>Latest news</span>
       </div>
       <div className="latest-news__articles">
-        {data.articles.map((item: any) => {
+        {data.articles.map((item: any, index: number) => {
           return (
-            <div>
+            <div key={index}>
               <p className="latest-news__time">
                 {item.publishedAt.substr(11, 5)}
               </p>
               <p className="latest-news__title">{item.title}</p>
+              <p className="article__border"></p>
             </div>
           );
         })}
       </div>
-      <div className="latest-news__footer">See all news</div>
+      <div className="latest-news__footer">
+        <span>See all news</span>
+        <p className="footer__arrow"></p>
+      </div>
     </div>
   );
 }

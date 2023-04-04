@@ -10,6 +10,24 @@ $white: #ffffff;
   margin-top: 24px;
 }
 
+.header.show-menu {
+  margin-top: 111px;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header.show-menu > span {
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.header.show-menu > div {
+  margin-top: 64px;
+}
+
 .header__title {
   font-weight: 900;
   font-size: 24px;
@@ -61,7 +79,7 @@ $white: #ffffff;
   display: none;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1200px) {
   .header {
     flex-direction: row;
     align-items: center;

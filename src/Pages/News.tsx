@@ -10,12 +10,14 @@ import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
+import image from "../no-image.jpg";
 
 export default function News() {
   const { categoryName } = useParams()!;
   const [url, setUrl] = useState<string>("");
   const [category, setCategory] = useState<string>("news");
   const [search, setSearch] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
   const [ToggleState, setToggleState] = useState<number>(1);
   const [favourites, setFavourites] = useState(() => {
@@ -23,6 +25,7 @@ export default function News() {
     if (ls) return JSON.parse(ls);
     else return [];
   });
+  const [filteredList, setFilteredList] = useState(favourites);
 
   const toggleTab = (index: number) => {
     setToggleState(index);
@@ -31,15 +34,27 @@ export default function News() {
   const getActiveClass = (index: number, className: string) =>
     ToggleState === index ? className : "";
 
-  const addFav = (title: string) => () => {
-    const isFavourited = favourites.includes(title);
+  const addFav = (title: string, author: string, image: string) => () => {
+    const isFavourited = favourites.find(
+      (favItem: any) => favItem.title === title
+    );
     if (isFavourited)
-      setFavourites((prev: any) => prev.filter((b: any) => b !== title));
-    else setFavourites((prev: any) => [...prev, title]);
+      setFavourites((prev: any) => prev.filter((b: any) => b.title !== title));
+    else setFavourites((prev: any) => [...prev, { title, author, image }]);
+  };
+
+  const filterFavouritesBySearch = () => {
+    const query = searchValue;
+    let updatedList = [...favourites];
+    updatedList = updatedList.filter((item) => {
+      return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    setFilteredList(updatedList);
+    setSearchValue("");
   };
 
   const fetchData = () => {
-    if (categoryName === undefined || categoryName === "favourites") {
+    if (categoryName === undefined) {
       setUrl(
         `https://newsapi.org/v2/top-headlines?q=${search}&country=us&apiKey=ff6ab548f10341ddb1c486d6399fdbc2`
       );
@@ -52,6 +67,7 @@ export default function News() {
       setCategory(categoryName);
       setSearch("");
     }
+    filterFavouritesBySearch();
   };
 
   useEffect(() => {
@@ -61,8 +77,8 @@ export default function News() {
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(url, fetcher);
-  if (error) return <div>Request Failed</div>;
-  if (!data) return <div>Loading...</div>;
+  if (error) return <div className="failed">Request Failed</div>;
+  if (!data) return <div className="loading">Loading...</div>;
 
   return (
     <div className="homepage">
@@ -81,6 +97,7 @@ export default function News() {
           <Header
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearch(e.target.value);
+              setSearchValue(e.target.value);
             }}
             onClick={fetchData}
             onKeyPress={(e: any) => {
@@ -88,6 +105,7 @@ export default function News() {
                 fetchData();
               }
             }}
+            navbarOpen={navbarOpen}
           />
         </div>
         <button
@@ -105,7 +123,7 @@ export default function News() {
             />
           )}
         </button>
-        <ul className="header__buttons">
+        <ul className={`header__buttons${navbarOpen ? " show-menu" : ""}`}>
           <li
             className={`tab ${getActiveClass(1, "active-tab")}`}
             onClick={() => toggleTab(1)}
@@ -125,52 +143,57 @@ export default function News() {
         <div className={`homepage__sidebar${navbarOpen ? " show-menu" : ""}`}>
           <Sidebar />
         </div>
-        <div className="homepage__content">
+        <div className={`homepage__content${navbarOpen ? " show-menu" : ""}`}>
           <div className="content__articles">
             <p>News</p>
             <div className={`content ${getActiveClass(1, "active-content")}`}>
               <div className="articles">
-                {data.articles.length > 0 ? (
-                  categoryName === "favourites" ? (
-                    favourites.length > 0 ? (
-                      data.articles.map((item: any, index: number) => {
-                        return favourites.includes(item.title) ? (
-                          <Article
-                            key={index}
-                            title={item.title}
-                            category={category}
-                            author={item.author}
-                            image={item.urlToImage}
-                            favourite={
-                              <span onClick={addFav(item.title)}>
-                                {favourites.includes(item.title) ? (
-                                  <BsStarFill style={{ color: "#ffd250" }} />
-                                ) : (
-                                  <BsStar style={{ color: "#ffd250" }} />
-                                )}
-                              </span>
-                            }
-                          />
-                        ) : (
-                          ""
-                        );
-                      })
-                    ) : (
-                      <div>No favourite articles found!</div>
-                    )
-                  ) : (
-                    data.articles.map((item: any, index: number) => {
-                      const isFavourited = favourites.includes(item.title);
-                      return (
+                {categoryName === "favourites" ? (
+                  favourites.length > 0 ? (
+                    filteredList.map((item: any, index: number) => {
+                      return item.image === null ? (
                         <Article
                           key={index}
                           title={item.title}
                           category={category}
                           author={item.author}
-                          image={item.urlToImage}
+                          image={image}
                           favourite={
-                            <span onClick={addFav(item.title)}>
-                              {isFavourited ? (
+                            <span
+                              onClick={addFav(
+                                item.title,
+                                item.author,
+                                item.image
+                              )}
+                            >
+                              {favourites.find(
+                                (favItem: any) => favItem.title === item.title
+                              ) ? (
+                                <BsStarFill style={{ color: "#ffd250" }} />
+                              ) : (
+                                <BsStar style={{ color: "#ffd250" }} />
+                              )}
+                            </span>
+                          }
+                        />
+                      ) : (
+                        <Article
+                          key={index}
+                          title={item.title}
+                          category={category}
+                          author={item.author}
+                          image={item.image}
+                          favourite={
+                            <span
+                              onClick={addFav(
+                                item.title,
+                                item.author,
+                                item.image
+                              )}
+                            >
+                              {favourites.find(
+                                (favItem: any) => favItem.title === item.title
+                              ) ? (
                                 <BsStarFill style={{ color: "#ffd250" }} />
                               ) : (
                                 <BsStar style={{ color: "#ffd250" }} />
@@ -180,7 +203,62 @@ export default function News() {
                         />
                       );
                     })
+                  ) : (
+                    <div>No favourite articles found!</div>
                   )
+                ) : data.articles.length > 0 ? (
+                  data.articles.map((item: any, index: number) => {
+                    const isFavourited = favourites.find(
+                      (favItem: any) => favItem.title === item.title
+                    );
+                    return item.urlToImage === null ? (
+                      <Article
+                        key={index}
+                        title={item.title}
+                        category={category}
+                        author={item.author}
+                        image={image}
+                        favourite={
+                          <span
+                            onClick={addFav(
+                              item.title,
+                              item.author,
+                              item.urlToImage
+                            )}
+                          >
+                            {isFavourited ? (
+                              <BsStarFill style={{ color: "#ffd250" }} />
+                            ) : (
+                              <BsStar style={{ color: "#ffd250" }} />
+                            )}
+                          </span>
+                        }
+                      />
+                    ) : (
+                      <Article
+                        key={index}
+                        title={item.title}
+                        category={category}
+                        author={item.author}
+                        image={item.urlToImage}
+                        favourite={
+                          <span
+                            onClick={addFav(
+                              item.title,
+                              item.author,
+                              item.urlToImage
+                            )}
+                          >
+                            {isFavourited ? (
+                              <BsStarFill style={{ color: "#ffd250" }} />
+                            ) : (
+                              <BsStar style={{ color: "#ffd250" }} />
+                            )}
+                          </span>
+                        }
+                      />
+                    );
+                  })
                 ) : (
                   <div>No articles found!</div>
                 )}

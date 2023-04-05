@@ -65,7 +65,7 @@ export default function CategoryPage() {
   if (!data) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="categorypage">
+    <div className="page">
       <div className="categorypage__header">
         <div className="header__banner">
           <div className="banner__text">

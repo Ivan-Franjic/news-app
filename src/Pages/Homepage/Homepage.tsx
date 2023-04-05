@@ -56,7 +56,7 @@ export default function Homepage() {
   if (!data) return <div className="loading">Loading...</div>;
 
   return (
-    <div className="homepage">
+    <div className="page">
       <div className="homepage__header">
         <div className="header__banner">
           <div className="banner__text">

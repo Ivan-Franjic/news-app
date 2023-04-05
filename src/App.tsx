@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import News from "./Pages/News";
+import Homepage from "./Pages/Homepage/Homepage";
+import CategoryPage from "./Pages/CategoryPage/CategoryPage";
 
 function App() {
   return (
@@ -10,8 +11,8 @@ function App() {
             path="/"
             element={<Navigate to="/home" replace={true} />}
           ></Route>
-          <Route path="/home" element={<News />}></Route>
-          <Route path="/:categoryName" element={<News />}></Route>
+          <Route path="/home" element={<Homepage />}></Route>
+          <Route path="/:categoryName" element={<CategoryPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

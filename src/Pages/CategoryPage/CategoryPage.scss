@@ -11,7 +11,11 @@
   flex-direction: column;
 }
 
-.header__banner {
+.header__banner,
+.categorypage__sidebar,
+.header__buttons.show-menu,
+.categorypage__content.show-menu,
+.content__articles > p {
   display: none;
 }
 
@@ -29,22 +33,10 @@
   margin-top: 42px;
 }
 
-.header__buttons.show-menu {
-  display: none;
-}
-
 .categorypage__main {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.categorypage__content.show-menu {
-  display: none;
-}
-
-.content__articles > p {
-  display: none;
 }
 
 .categorypage__articles {
@@ -52,10 +44,6 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 42px;
-}
-
-.categorypage__sidebar {
-  display: none;
 }
 
 .categorypage__sidebar.show-menu {

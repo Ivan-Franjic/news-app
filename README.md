@@ -7,7 +7,7 @@ Simple web application showing latest news around the world.
 
 * Browse latest news
 * News categories
-* Bookmark news for viewing later
+* Bookmark favourite articles for viewing later
 * Search news based on title
 
 ## Built with

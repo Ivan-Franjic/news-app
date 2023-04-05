@@ -1,15 +1,26 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# MyNews
 
-## Available Scripts
+Simple web application showing latest news around the world.
 
-In the project directory, you can run:
+## Key Features
 
-### `npm start`
+* Browse latest news
+* News categories
+* Bookmark favourite articles for viewing later
+* Search news based on title
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Built with
+
+* [React](https://react.dev/) - React lets you build user interfaces out of individual pieces called components then combine them into entire screens, pages, and apps.
+* [News API](https://newsapi.org/) - Simple, easy-to-use REST API that returns JSON search results for current and historic news articles published by over 80,000 worldwide sources.
+* [SCSS](https://sass-lang.com/) - Most mature, stable, and powerful professional grade CSS extension language in the world.
+
+# How to use
+
+Clone this repo to your desktop, go to it's root directory and run `npm install` to install it's dependencies.
+
+Once the dependencies are installed, you can run `npm start` to start the application. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
@@ -38,9 +49,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

@@ -1,7 +1,7 @@
 
 # MyNews
 
-Simple web app showing latest news around the world.
+Simple web application showing latest news around the world.
 
 ## Key Features
 

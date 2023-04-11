@@ -11,12 +11,16 @@ export default function Article({
     <div className="article">
       <img className="article__image" src={image} />
       <div className="article__details">
-        <p className="article__category">{category}</p>
-        <p className="article__title">
+        <p data-testid="article-category" className="article__category">
+          {category}
+        </p>
+        <p data-testid="article-title" className="article__title">
           {title} <span className="article__favourite">{favourite}</span>
         </p>
         <div className="article__footer">
-          <p className="article__author">{author}</p>
+          <p data-testid="article-author" className="article__author">
+            {author}
+          </p>
           <span>{favourite}</span>
         </div>
       </div>

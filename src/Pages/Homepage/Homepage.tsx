@@ -5,6 +5,7 @@ import LatestNews from "../../Components/LatestNews/LatestNews";
 import useSWR from "swr";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import Banner from "../../Components/Banner/Banner";
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { BsStar } from "react-icons/bs";
@@ -58,16 +59,7 @@ export default function Homepage() {
   return (
     <div className="page">
       <div className="homepage__header">
-        <div className="header__banner">
-          <div className="banner__text">
-            <span>Make MyNews your homepage</span>
-            <span>Every day discover what's trending on the internet!</span>
-          </div>
-          <div className="banner__buttons">
-            <button className="button__get">Get</button>
-            <button className="button__no">No, thanks</button>
-          </div>
-        </div>
+        <Banner />
         <div className="header__main">
           <Header
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

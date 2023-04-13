@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { useParams } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import Banner from "../../Components/Banner/Banner";
 import { MdClose } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { BsStar } from "react-icons/bs";
@@ -12,7 +13,7 @@ import { BsStarFill } from "react-icons/bs";
 import image from "../../no-image.jpg";
 
 export default function CategoryPage() {
-  const { categoryName } = useParams()!;
+  const { categoryName } = useParams<string>();
   const [url, setUrl] = useState<string>("");
   const [category, setCategory] = useState<string>("news");
   const [search, setSearch] = useState<string>("");
@@ -38,7 +39,10 @@ export default function CategoryPage() {
     const query = searchValue;
     let updatedList = [...favourites];
     updatedList = updatedList.filter((item) => {
-      return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      return (
+        item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1 ||
+        item.author.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      );
     });
     setFilteredList(updatedList);
     setSearchValue("");
@@ -67,16 +71,7 @@ export default function CategoryPage() {
   return (
     <div className="page">
       <div className="categorypage__header">
-        <div className="header__banner">
-          <div className="banner__text">
-            <span>Make MyNews your homepage</span>
-            <span>Every day discover what's trending on the internet!</span>
-          </div>
-          <div className="banner__buttons">
-            <button className="button__get">Get</button>
-            <button className="button__no">No, thanks</button>
-          </div>
-        </div>
+        <Banner />
         <div className="header__main">
           <Header
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +118,7 @@ export default function CategoryPage() {
             <div className="categorypage__articles">
               {categoryName === "favourites" ? (
                 favourites.length > 0 ? (
-                  filteredList.slice(0, 4).map((item: any, index: number) => {
+                  filteredList.map((item: any, index: number) => {
                     return item.image === null ? (
                       <Article
                         key={index}
@@ -188,7 +183,7 @@ export default function CategoryPage() {
                   <div>No favourite articles found!</div>
                 )
               ) : data.articles.length > 0 ? (
-                data.articles.slice(0, 4).map((item: any, index: number) => {
+                data.articles.map((item: any, index: number) => {
                   const isFavourited = favourites.find(
                     (favItem: any) => favItem.title === item.title
                   );
@@ -251,7 +246,7 @@ export default function CategoryPage() {
               ) : (
                 <div>No articles found!</div>
               )}
-              {categoryName === "favourites"
+              {/* {categoryName === "favourites"
                 ? favourites.length > 4
                   ? filteredList.slice(4).map((item: any, index: number) => {
                       return item.image === null ? (
@@ -388,7 +383,7 @@ export default function CategoryPage() {
                       />
                     );
                   })
-                : ""}
+                : ""} */}
             </div>
           </div>
         </div>

@@ -48,10 +48,6 @@ $text: rgba(0, 0, 0, 0.8);
   margin-top: 0px;
 }
 
-.header__banner {
-  display: none;
-}
-
 .header__buttons {
   display: flex;
   justify-content: center;
@@ -79,78 +75,6 @@ $text: rgba(0, 0, 0, 0.8);
   .header__main {
     justify-content: start;
     margin-top: 95px;
-  }
-
-  .header__banner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(180deg, #bb1e1e 71.29%, #b21919 99.95%);
-    height: 60px;
-  }
-
-  .banner__text {
-    display: flex;
-    gap: 46px;
-    margin-right: 370px;
-    line-height: 21px;
-    color: #ffffff;
-  }
-
-  .banner__text > span:first-child {
-    font-weight: bold;
-    font-size: 16px;
-    letter-spacing: -0.136px;
-  }
-
-  .banner__text > span:last-child {
-    font-size: 14px;
-    letter-spacing: -0.119px;
-  }
-
-  .banner__buttons {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .button__get {
-    width: 69px;
-    height: 40px;
-    background: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 20px;
-    text-transform: uppercase;
-    text-align: center;
-    color: #1d1d1b;
-    cursor: pointer;
-  }
-
-  .button__get:hover {
-    background: #f5f3f3;
-  }
-
-  .button__no {
-    height: 20px;
-    background: #bb1e1e;
-    border: none;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 20px;
-    text-align: center;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  .button__no:hover {
-    text-decoration: underline;
   }
 
   .header__border {

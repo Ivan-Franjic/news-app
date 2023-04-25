@@ -1,5 +1,6 @@
 import "./CategoryPage.scss";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Article from "../../Components/Article/Article";
 import useSWR from "swr";
 import { useParams } from "react-router-dom";
@@ -13,6 +14,7 @@ import { BsStarFill } from "react-icons/bs";
 import image from "../../no-image.jpg";
 
 export default function CategoryPage() {
+  const location = useLocation();
   const { categoryName } = useParams<string>();
   const [url, setUrl] = useState<string>("");
   const [category, setCategory] = useState<string>("news");
@@ -60,8 +62,12 @@ export default function CategoryPage() {
 
   useEffect(() => {
     fetchData();
+    setNavbarOpen(false);
+  }, [categoryName, location]);
+
+  useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
-  }, [categoryName, favourites]);
+  }, [favourites]);
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(url, fetcher);

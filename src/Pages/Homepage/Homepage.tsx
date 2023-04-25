@@ -48,6 +48,9 @@ export default function Homepage() {
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
   }, [favourites]);
 

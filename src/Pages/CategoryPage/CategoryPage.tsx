@@ -19,7 +19,6 @@ export default function CategoryPage() {
   const [url, setUrl] = useState<string>("");
   const [category, setCategory] = useState<string>("news");
   const [search, setSearch] = useState<string>("");
-  const [searchValue, setSearchValue] = useState<string>("");
   const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
   const [favourites, setFavourites] = useState(() => {
     const ls = localStorage.getItem("favourites");
@@ -38,7 +37,7 @@ export default function CategoryPage() {
   };
 
   const filterFavouritesBySearch = () => {
-    const query = searchValue;
+    const query = search;
     let updatedList = [...favourites];
     updatedList = updatedList.filter((item) => {
       return (
@@ -47,7 +46,7 @@ export default function CategoryPage() {
       );
     });
     setFilteredList(updatedList);
-    setSearchValue("");
+    setSearch("");
   };
 
   const fetchData = () => {
@@ -66,6 +65,7 @@ export default function CategoryPage() {
   }, [categoryName, location]);
 
   useEffect(() => {
+    filterFavouritesBySearch();
     localStorage.setItem("favourites", JSON.stringify(favourites));
   }, [favourites]);
 
@@ -82,7 +82,6 @@ export default function CategoryPage() {
           <Header
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearch(e.target.value);
-              setSearchValue(e.target.value);
             }}
             onClick={fetchData}
             onKeyPress={(e: any) => {
@@ -252,144 +251,6 @@ export default function CategoryPage() {
               ) : (
                 <div>No articles found!</div>
               )}
-              {/* {categoryName === "favourites"
-                ? favourites.length > 4
-                  ? filteredList.slice(4).map((item: any, index: number) => {
-                      return item.image === null ? (
-                        <Article
-                          key={index}
-                          title={item.title}
-                          category={category}
-                          author={item.author}
-                          image={image}
-                          favourite={
-                            <span
-                              onClick={addFav(
-                                item.title,
-                                item.author,
-                                item.image
-                              )}
-                            >
-                              {favourites.find(
-                                (favItem: any) => favItem.title === item.title
-                              ) ? (
-                                <BsStarFill
-                                  style={{
-                                    color: "#ffd250",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                <BsStar
-                                  style={{
-                                    color: "#ffd250",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              )}
-                            </span>
-                          }
-                        />
-                      ) : (
-                        <Article
-                          key={index}
-                          title={item.title}
-                          category={category}
-                          author={item.author}
-                          image={item.image}
-                          favourite={
-                            <span
-                              onClick={addFav(
-                                item.title,
-                                item.author,
-                                item.image
-                              )}
-                            >
-                              {favourites.find(
-                                (favItem: any) => favItem.title === item.title
-                              ) ? (
-                                <BsStarFill
-                                  style={{
-                                    color: "#ffd250",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                <BsStar
-                                  style={{
-                                    color: "#ffd250",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              )}
-                            </span>
-                          }
-                        />
-                      );
-                    })
-                  : ""
-                : data.articles.length > 4
-                ? data.articles.slice(4).map((item: any, index: number) => {
-                    const isFavourited = favourites.find(
-                      (favItem: any) => favItem.title === item.title
-                    );
-                    return item.urlToImage === null ? (
-                      <Article
-                        key={index}
-                        title={item.title}
-                        category={category}
-                        author={item.author}
-                        image={image}
-                        favourite={
-                          <span
-                            onClick={addFav(
-                              item.title,
-                              item.author,
-                              item.urlToImage
-                            )}
-                          >
-                            {isFavourited ? (
-                              <BsStarFill
-                                style={{ color: "#ffd250", cursor: "pointer" }}
-                              />
-                            ) : (
-                              <BsStar
-                                style={{ color: "#ffd250", cursor: "pointer" }}
-                              />
-                            )}
-                          </span>
-                        }
-                      />
-                    ) : (
-                      <Article
-                        key={index}
-                        title={item.title}
-                        category={category}
-                        author={item.author}
-                        image={item.urlToImage}
-                        favourite={
-                          <span
-                            onClick={addFav(
-                              item.title,
-                              item.author,
-                              item.urlToImage
-                            )}
-                          >
-                            {isFavourited ? (
-                              <BsStarFill
-                                style={{ color: "#ffd250", cursor: "pointer" }}
-                              />
-                            ) : (
-                              <BsStar
-                                style={{ color: "#ffd250", cursor: "pointer" }}
-                              />
-                            )}
-                          </span>
-                        }
-                      />
-                    );
-                  })
-                : ""} */}
             </div>
           </div>
         </div>

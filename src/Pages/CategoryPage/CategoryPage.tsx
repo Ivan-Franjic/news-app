@@ -12,6 +12,7 @@ import { FiMenu } from "react-icons/fi";
 import { BsStar } from "react-icons/bs";
 import { BsStarFill } from "react-icons/bs";
 import image from "../../no-image.jpg";
+import fetcher from "../../Common/fetch";
 
 export default function CategoryPage() {
   const location = useLocation();
@@ -69,7 +70,6 @@ export default function CategoryPage() {
     localStorage.setItem("favourites", JSON.stringify(favourites));
   }, [favourites]);
 
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, error } = useSWR(url, fetcher);
   if (error) return <div className="failed">Request Failed</div>;
   if (!data) return <div className="loading">Loading...</div>;

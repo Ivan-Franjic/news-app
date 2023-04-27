@@ -1,9 +1,11 @@
 import "./LatestNews.scss";
 import useSWRInfinite from "swr/infinite";
+import fetcher from "../../Common/fetch";
+
 const perPage = 20;
 
 export default function LatestNews() {
-  function handleScroll(e: any) {
+  const handleScroll = (e: any) => {
     const bottom =
       Math.abs(
         e.target.scrollHeight - e.target.clientHeight - e.target.scrollTop
@@ -11,9 +13,7 @@ export default function LatestNews() {
     if (bottom) {
       setSize(size + 1);
     }
-  }
-
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  };
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
